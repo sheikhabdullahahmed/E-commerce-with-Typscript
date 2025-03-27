@@ -1,86 +1,68 @@
-import { NavLink, Link } from "react-router-dom";
-import { RiSearch2Line } from "react-icons/ri";
-import { RiUserLine } from "react-icons/ri";
-import styles from "../../index.css";  // Correct import for CSS
-import { navData } from "../../NavItem/Navitems"; 
-import CartIcon from "../CartIcons/CardIcons"; 
-import { useEffect, useState } from "react";
+import React, { useState } from 'react';
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
-interface NavBarProps {
-  handleShow: () => void;
-}
+const Navbar = () => {
+  // State to manage the navbar's visibility
+  const [nav, setNav] = useState(false);
 
-const Navbar: React.FC<NavBarProps> = ({ handleShow }) => {
-  const [hasScrolled, setHasSrolled] = useState(false);
-
-  const resizeHeaderOnScroll = () => {
-    setHasSrolled((hasScrolled) => {
-      if (
-        !hasScrolled &&
-        (document.body.scrollTop > 20 ||
-          document.documentElement.scrollTop > 20)
-      ) {
-        return true;
-      }
-
-      if (
-        hasScrolled &&
-        document.body.scrollTop < 4 &&
-        document.documentElement.scrollTop < 4
-      ) {
-        return false;
-      }
-
-      return hasScrolled;
-    });
+  // Toggle function to handle the navbar's display
+  const handleNav = () => {
+    setNav(!nav);
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", resizeHeaderOnScroll);
-
-    return () => window.removeEventListener("scroll", resizeHeaderOnScroll);
-  }, []);
-
-  const navStyles = hasScrolled
-    ? `${styles.nav} ${styles.hasScrolled}`
-    : styles.nav;
+  // Array containing navigation items
+  const navItems = [
+    { id: 1, text: 'Home' },
+    { id: 2, text: 'About' },
+    { id: 3, text: 'Products' },
+    { id: 4, text: 'Contact' },
+    { id: 5, text: 'Login' },
+  ];
 
   return (
-    <nav className={navStyles}>
-      <div className={styles.container_bottom}>
-        <Link to="/" className={styles.title}>
-          Flowy Cart
-        </Link>
-        <ul className={styles.links}>
-          {navData.map((option) => {
-            return (
-              <li key={option.name}> 
-                <NavLink to={`/catalog/${option.name}`} className={styles.link}>
-                  {option.name}
-                </NavLink>
-              </li>
-            );
-          })}
-        </ul>
-        <ul className={styles.icons_menu}>
-          <li>
-            <NavLink to={"/"} className={styles.link}>
-              <RiSearch2Line />
-            </NavLink>
+    <div className=' text-gray-500 flex justify-center items-center rounded-4xl h-24 max-w-[1240px] mx-auto  px-2 '>
+      {/* Logo */}
+      <h1 className='w-full text-3xl font-bold text-[#00df9a]'>FurnitureHub</h1>
+
+      {/* Desktop Navigation */}
+      <ul className='hidden font-semibold text-lg md:flex'>
+        {navItems.map(item => (
+          <li
+            key={item.id}
+            className='p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 '
+          >
+            {item.text}
           </li>
-          <li>
-            <div className={styles.link} onClick={handleShow}>
-              <CartIcon />
-            </div>
-          </li>
-          <li>
-            <NavLink to={`/login`} className={styles.link}>
-              <RiUserLine />
-            </NavLink>
-          </li>
-        </ul>
+        ))}
+      </ul>
+
+      {/* Mobile Navigation Icon */}
+      <div onClick={handleNav} className='block md:hidden'>
+        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
       </div>
-    </nav>
+
+      {/* Mobile Navigation Menu */}
+      <ul
+        className={
+          nav
+            ? 'fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500'
+            : 'ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%]'
+        }
+      >
+        {/* Mobile Logo */}
+        <h1 className='w-full text-3xl font-bold text-[#00df9a] m-4'>REACT.</h1>
+
+        {/* Mobile Navigation Items */}
+        {navItems.map(item => (
+          <li
+            key={item.id}
+            className='p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600'
+          >
+            {item.text}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
