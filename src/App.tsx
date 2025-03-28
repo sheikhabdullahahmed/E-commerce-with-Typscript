@@ -1,14 +1,15 @@
-import Hero from "./Components/Hero/Hero"
-import Navbar from "./Components/Navbar/Navbar"
 
+import Hero from "./Components/Hero/Hero";
+import Navbar from "./Components/Navbar/Navbar"; 
 
-function App() {
+const App = () => {
   return (
-    <div className="">
-      <Navbar/>
-      <Hero/>
-    </div>
-  )
-}
+    <div className="dark:bg-gray-800 min-h-screen text-gray-900 dark:text-gray-100">
+  <Navbar />
+  <Hero />
+</div>
 
-export default App
+  );
+};
+
+export default App;

@@ -2,104 +2,55 @@ import React from "react";
 import { Link } from "react-router-dom";
 import heroBcg from "../../assets/img1.jpeg";
 import heroBcg2 from "../../assets/img2.jpeg";
-import styled from "styled-components";
-
 
 export interface HeroProps {
-    title?: string;
-    description?: string;
-    image1?: string;
-    image2?: string;
-  }
-  
+  title?: string;
+  description?: string;
+  image1?: string;
+  image2?: string;
+}
 
-const Hero: React.FC<HeroProps> = () => {
+const Hero: React.FC<HeroProps> = ({
+  title = "Explore Our Furniture Range! ",
+  description = "Furniture is one such part of our homes that cannot be missed out in any of the cases. It makes our home aesthetically valuable by giving us all the comfort and relaxation that we desire. Certainly, one cannot deny the fact that a home is not complete without the right set of furniture.",
+  image1 = heroBcg,
+  image2 = heroBcg2,
+}) => {
   return (
-    <Wrapper className="section-center">
-      <article className="content">
-        <h1>
-          explore our <br /> furniture range
+    <section className=" w-full flex flex-col lg:grid lg:grid-cols-2 lg:gap-6 px-4 sm:px-6 lg:px-8 py-6 overflow-hidden">
+      {/* Text Section */}
+      <article className="flex flex-col justify-center items-center text-center lg:text-left max-w-2xl mx-auto lg:mx-0 mb-6 lg:mb-0">
+        <h1 className="text-2xl text-blue-950 sm:text-3xl lg:text-5xl font-bold mb-4 leading-tight whitespace-pre-line max-w-xl sm:max-w-2xl lg:max-w-2xl">
+          {title}
         </h1>
-        <p>
-          Furniture is one such part of our homes that cannot be missed out in
-          any of the cases. It makes our home aesthetically valuable by giving
-          us all the comfort and relaxation that we desire. Certainly, one
-          cannot deny the fact that a home is not complete without the right set
-          of furniture.
+
+        <p className="text-gray-600 leading-relaxed mb-4 text-sm sm:text-base lg:text-lg overflow-hidden text-ellipsis">
+          {description}
         </p>
-        {/* <Link to="/products" className="btn hero-btn">
-          shop now
-        </Link> */}
       </article>
-      <article className="img-container">
-        <img src={heroBcg} alt="hero-image" className="main-img" />
-        <img src={heroBcg2} alt="hero-image-2" className="accent-img" />
+
+      {/* Image Section */}
+      <article className="flex justify-center items-center w-full">
+        <div className="w-full max-w-3xl flex flex-col sm:flex-row gap-4 sm:gap-6">
+          <div className="flex-1 min-w-0">
+            <img
+              src={image1}
+              alt="Main furniture"
+              className="w-full h-64 sm:h-80 lg:h-full object-cover rounded-lg shadow-lg max-w-full"
+            />
+          </div>
+          <div className="flex-1  relative">
+            <img
+              src={image2}
+              alt="Secondary furniture"
+              className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg shadow-lg max-w-full"
+            />
+            <div className="absolute inset-0 bg-blue-200 opacity-30 rounded-lg -z-10"></div>
+          </div>
+        </div>
       </article>
-    </Wrapper>
+    </section>
   );
 };
 
 export default Hero;
-
-
-const Wrapper = styled.section`
-  min-height: 60vh;
-  display: grid;
-  place-items: center;
-  .img-container {
-    display: none;
-  }
-
-  p {
-    line-height: 2;
-    max-width: 45em;
-    margin-bottom: 2rem;
-    color: var(--clr-grey-5);
-    font-size: 1rem;
-  }
-  @media (min-width: 992px) {
-    height: calc(100vh - 5rem);
-    grid-template-columns: 1fr 1fr;
-    gap: 8rem;
-    h1 {
-      margin-bottom: 2rem;
-    }
-    p {
-      font-size: 1.25rem;
-    }
-    .hero-btn {
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-    }
-    .img-container {
-      display: block;
-      position: relative;
-    }
-    .main-img {
-      width: 100%;
-      height: 550px;
-      position: relative;
-      border-radius: var(--radius);
-      display: block;
-      object-fit: cover;
-    }
-    .accent-img {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 250px;
-      transform: translateX(-50%);
-      border-radius: var(--radius);
-    }
-    .img-container::before {
-      content: '';
-      position: absolute;
-      width: 10%;
-      height: 80%;
-      background: var(--clr-primary-9);
-      bottom: 0%;
-      left: -8%;
-      border-radius: var(--radius);
-    }
-  }
-`;
