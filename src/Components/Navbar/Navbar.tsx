@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import ToggleTheme from "../ToogleTheme/Toogle"; // Adjust path as needed
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import burger from "../../assets/burger.png"; // Image imported
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 interface NavItem {
   id: number;
@@ -25,15 +26,12 @@ const Navbar = () => {
   return (
     <div className="text-gray-500 dark:text-gray-300 flex justify-between items-center h-24 max-w-[1300px] mx-auto px-2">
       {/* Logo */}
-      <div className="flex md:pl-2 items-center ">
+      <div className="flex items-center">
         <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMoq5YKwdvH-Kc7VtXS6GtZrA8ENnIlCRdtg&s"
+          src="https://furniture-store-react.netlify.app/static/media/logo.221f6b13.svg"
           alt="FurnitureHub Logo"
-          className="  md:pr-0 pr-14 h-20  lg:w-36 lg:h-36 object-contain flex-shrink-0"
+          className="w-40 h-20 md:w-48 lg:h-36 object-contain flex-shrink-0"
         />
-        {/* <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-950 dark:text-blue-200 whitespace-nowrap">
-          
-        </h1> */}
       </div>
 
       {/* Desktop Navigation */}
@@ -49,12 +47,19 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-        
       </div>
 
       {/* Mobile Navigation Icon */}
       <div onClick={handleNav} className="block md:hidden cursor-pointer">
-        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+        {nav ? (
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="w-8 h-8 text-blue-700"
+            style={{ fontSize: "32px" }}
+          />
+        ) : (
+          <img src={burger} alt="Menu" className="w-8 h-8" />
+        )}
       </div>
 
       {/* Mobile Navigation Menu */}
