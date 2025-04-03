@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import ToggleTheme from "../ToogleTheme/Toogle"; // Note: Check if path is correct
+import ToggleTheme from "../ToogleTheme/Toogle"; // Adjust path as needed
+
+interface NavItem {
+  id: number;
+  text: string;
+}
 
 const Navbar = () => {
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState<boolean>(false);
 
   const handleNav = () => {
     setNav(!nav);
   };
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { id: 1, text: "Home" },
     { id: 2, text: "About" },
     { id: 3, text: "Products" },
@@ -18,23 +23,23 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="text-gray-500 flex justify-between items-center h-24 max-w-[1240px] mx-auto px-2">
+    <div className="text-gray-500 dark:text-gray-300 flex justify-between items-center h-24 max-w-[1300px] mx-auto px-2">
       {/* Logo */}
-      <div className="flex items-center gap-4">
+      <div className="flex md:pl-2 items-center ">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMoq5YKwdvH-Kc7VtXS6GtZrA8ENnIlCRdtg&s"
           alt="FurnitureHub Logo"
-          className="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain flex-shrink-0"
+          className="  md:pr-0 pr-14 h-20  lg:w-36 lg:h-36 object-contain flex-shrink-0"
         />
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-950 whitespace-nowrap">
-          FurnitureHub
-        </h1>
+        {/* <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-950 dark:text-blue-200 whitespace-nowrap">
+          
+        </h1> */}
       </div>
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-2">
         <ul className="flex font-semibold text-lg">
-          {navItems.map((item) => (
+          {navItems.map((item: NavItem) => (
             <li
               key={item.id}
               className="p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer 
@@ -44,8 +49,8 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
+        
       </div>
-        <ToggleTheme/>
 
       {/* Mobile Navigation Icon */}
       <div onClick={handleNav} className="block md:hidden cursor-pointer">
@@ -55,14 +60,14 @@ const Navbar = () => {
       {/* Mobile Navigation Menu */}
       <ul
         className={`fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-r-gray-900 
-          bg-[#000300] transition-all duration-500 ease-in-out ${
+          bg-[#000300] dark:bg-gray-900 transition-all duration-500 ease-in-out ${
             nav ? "left-0" : "left-[-100%]"
           }`}
       >
         <h1 className="w-full text-3xl font-bold text-[#00df9a] m-4">
           FurnitureHub
         </h1>
-        {navItems.map((item) => (
+        {navItems.map((item: NavItem) => (
           <li
             key={item.id}
             className="p-4 border-b border-gray-600 rounded-xl 
@@ -73,7 +78,6 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
-      
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import heroBcg from "../../assets/img1.jpeg";
 import heroBcg2 from "../../assets/img2.jpeg";
 
@@ -20,11 +19,11 @@ const Hero: React.FC<HeroProps> = ({
     <section className=" w-full flex flex-col lg:grid lg:grid-cols-2 lg:gap-6 px-4 sm:px-6 lg:px-8 py-6 overflow-hidden">
       {/* Text Section */}
       <article className="flex flex-col justify-center items-center text-center lg:text-left max-w-2xl mx-auto lg:mx-0 mb-6 lg:mb-0">
-        <h1 className="text-2xl text-blue-950 sm:text-3xl lg:text-5xl font-bold mb-4 leading-tight whitespace-pre-line max-w-xl sm:max-w-2xl lg:max-w-2xl">
+        <h1 className="text-2xl text-blue-950 sm:text-3xl lg:text-5xl font-bold mb-4 leading-tight whitespace-pre-line max-w-xl sm:max-w-2xl lg:max-w-lg">
           {title}
         </h1>
 
-        <p className="text-gray-600 leading-relaxed mb-4 text-sm sm:text-base lg:text-lg overflow-hidden text-ellipsis">
+        <p className="text-gray-600 leading-relaxed mb-4 text-sm sm:text-base lg:text-lg max-w-lg overflow-hidden text-ellipsis">
           {description}
         </p>
       </article>

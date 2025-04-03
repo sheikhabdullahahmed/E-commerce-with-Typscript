@@ -4,4 +4,4 @@ export interface HeroProps {
     image1?: string;
     image2?: string;
   }
-  
+   

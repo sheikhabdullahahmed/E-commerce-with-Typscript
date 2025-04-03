@@ -1,8 +1,8 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaSun, FaMoon } from 'react-icons/fa';
 
 const ToggleTheme = () => {
-  const [theme, setTheme] = useState(() => {
+  const [theme, setTheme] = useState<string>(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') || 'light';
     }
@@ -10,6 +10,7 @@ const ToggleTheme = () => {
   });
 
   useEffect(() => {
+    console.log('Theme:', theme); // Debug
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -21,7 +22,7 @@ const ToggleTheme = () => {
   }, [theme]);
 
   const handleToggle = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    setTheme((prevTheme: string) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
   return (
