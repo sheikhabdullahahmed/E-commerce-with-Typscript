@@ -1,8 +1,9 @@
 import React from "react";
 // import { useNavigate } from "react-router-dom";
 
-const Hero = () => {
+const Hero: React.FC = () => {
   return (
+    <React.Fragment>
     <div data-aos="zoom-in" className="mb-4">
       <div
         className="h-[524px] bg-[url('https://websitedemos.net/furniture-store-04/wp-content/uploads/sites/155/2020/02/sofa-bg-banner.jpg')] bg-no-repeat bg-cover bg-[bottom_right] px-24 py-20 md:h-[430px] sm:px-10 sm:py-16 xs:px-6"
@@ -21,6 +22,7 @@ const Hero = () => {
         </button>
       </div>
     </div>
+    </React.Fragment>
   );
 };
 

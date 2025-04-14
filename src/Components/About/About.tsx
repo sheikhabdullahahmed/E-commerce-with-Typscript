@@ -7,6 +7,7 @@ import AboutPhoto4 from "../../assets/about-photo-4.png";
 
 const About = () => {
   return (
+    <React.Fragment>
     <section id="about" className="mb-24 max-w-screen-2xl mx-auto px-12">
       <div className="flex flex-col xs:flex-row justify-between items-start mb-12">
         <div className="mr-6">
@@ -92,6 +93,7 @@ const About = () => {
         </div>
       </div>
     </section>
+    </React.Fragment>
   );
 };
 
