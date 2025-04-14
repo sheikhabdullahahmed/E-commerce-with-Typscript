@@ -22,3 +22,5 @@ export default App;
 
 
 // https://github.com/Anrsgrl/ecommerce-furniture/blob/main/src/pages/Home/components/Hero/hero.scss
+// https://github.com/Sohail-crypto-collab/Comforty-Store-Hackathon-Update/tree/main/src/components 
+// https://github.com/Anrsgrl/ecommerce-furniture
