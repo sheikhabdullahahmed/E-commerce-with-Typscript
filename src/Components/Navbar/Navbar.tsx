@@ -1,124 +1,290 @@
-import React, { useState } from 'react';
+import * as React from "react";
+import { useState, useEffect } from "react";
+import logo from '../../assets/Logo.png'
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Button,
+  Badge,
+  Container,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import MenuIcon from "@mui/icons-material/Menu";
 
-const ResponsiveNavbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const pages = [
+  { name: "Home", Link: "/" },
+  { name: "About", Link: "/About" },
+  { name: "Shop", Link: "/Shop" },
+  { name: "Blog", Link: "/Blog" },
+  { name: "Contact", Link: "/Contact" },
+];
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+interface CartState {
+  Cart: { SelectedProductsId: string[] };
+}
+
+interface FavState {
+  Fav: { favProductsId: string[] };
+}
+
+function ResponsiveAppBar() {
+  const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [viewList, setViewList] = useState<boolean>(false);
+
+  const searchBarRef = React.useRef<HTMLDivElement>(null);
+  const searchIconRef = React.useRef<HTMLButtonElement>(null);
+
+
+
+  // Handle click outside to close search bar
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (
+        !searchBarRef.current?.contains(target) &&
+        !searchIconRef.current?.contains(target)
+      ) {
+        setShowSearch(false);
+        setSearchValue("");
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div className=" h-full bg-gray-100 dark:bg-gray-700">
-      <div className="container mx-auto relative md:px-0 px-4 md:my-6 bg-[#111111] dark:bg-white rounded-xl overflow-hidden">
-        <nav className="bg-[#111111] dark:bg-white shadow-lg w-full z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              {/* Logo */}
-              <div className="flex-shrink-0">
-                <a
-                  href="#"
-                  className="lg:text-xl md:text-lg text-sm font-bold text-gray-700 dark:text-white capitalize"
-                >
-                  {['N', 'a', 'v', 'b', 'a', 'r'].map((letter, index) => (
-                    <span
-                      key={index}
-                      className={`px-1 bg-green-400 dark:bg-green-600 rounded-full animate-[ping_${1.9 +
-                        index * 0.1}s_linear_infinite]`}
-                    >
-                      {letter}
-                    </span>
-                  ))}
-                </a>
-              </div>
+    <AppBar
+      position="sticky"
+      sx={{
+        minHeight: "65px",
+        height: { xs: "fit-content", md: "65px" },
+        mb: "5px",
+        bgcolor: "#FFFFFF",
+        padding: { xs: "0 5px", md: "0 70px" },
+      }}
+    >
+      {/* Desktop View */}
+      <Container
+        sx={{
+          display: { xs: "none", md: "flex" },
+          justifyContent: "space-between",
+        }}
+      >
+        <Toolbar disableGutters>
+          <Box
+            sx={{ width: "120px", cursor: "pointer" }}
+          >
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={logo}
+              alt="Furni Pro"
+              loading="lazy"
+            />
+          </Box>
+        </Toolbar>
 
-              {/* Desktop Menu */}
-              <div className="hidden md:flex space-x-8 text-gray-400 dark:text-gray-700">
-                <a href="#about" className="text-green-400 dark:text-green-600">
-                  Home
-                </a>
-                <a href="#what-i-do" className="hover:text-green-400 dark:hover:text-green-600">
-                  What I Do
-                </a>
-                <a href="#testimonials" className="hover:text-green-400 dark:hover:text-green-600">
-                  Testimonials
-                </a>
-                <a href="#clients" className="hover:text-green-400 dark:hover:text-green-600">
-                  Clients
-                </a>
-                <a href="#fun-facts" className="hover:text-green-400 dark:hover:text-green-600">
-                  Fun Facts
-                </a>
-              </div>
+        <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          {pages.map((page) => (
+            <Button
+              key={page.name}
+              sx={{ my: 2, display: "block", color: "black" }}
+            >
+              {page.name}
+              <hr
+                style={{
+                  display: location.pathname === page.Link ? "block" : "none",
+                }}
+              />
+            </Button>
+          ))}
+        </Box>
 
-              {/* Mobile Menu Button */}
-              <div className="md:hidden flex items-center">
-                <button
-                  onClick={toggleMobileMenu}
-                  className="text-green-400 dark:text-green-600 hover:text-green-600 focus:outline-none"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <IconButton
+            ref={searchIconRef}
+            onClick={() => setShowSearch(true)}
+            size="large"
+            aria-label="Search"
+            color="inherit"
+          >
+            <SearchIcon sx={{ color: "black" }} />
+          </IconButton>
+          <IconButton
+            size="large"
+            aria-label="Favorite"
+            color="inherit"
+          >
+            <FavoriteBorderIcon sx={{ fontSize: "30px", color: "black" }} />
+          </IconButton>
+          <IconButton
+            size="large"
+            aria-label="Shop"
+            color="inherit"
+          >
+            <ShoppingBagOutlinedIcon sx={{ fontSize: "30px", color: "black" }} />
+            <Badge badgeContent={""} color="error" />
+          </IconButton>
+        </Box>
+      </Container>
 
-          {/* Mobile Menu Overlay */}
-          {isMobileMenuOpen && (
-            <div
-              className="absolute inset-0 bg-[#111111] dark:bg-white bg-opacity-50 z-50"
-              onClick={(e) => {
-                if (e.target === e.currentTarget) closeMobileMenu();
+      {showSearch && (
+        <Box
+          ref={searchBarRef}
+          sx={{
+            width: "300px",
+            position: "absolute",
+            top: "70px",
+            right: "20%",
+            display: { xs: "none", md: "block" },
+          }}
+        >
+          <TextField
+            sx={{ bgcolor: "#FFF", width: "100%", borderRadius: "20px" }}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            label="Search"
+            variant="outlined"
+          />
+        </Box>
+      )}
+
+      {/* Mobile View */}
+      <Container sx={{ display: { xs: "block", md: "none" } }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Toolbar disableGutters>
+            <Box
+              sx={{ width: "80px", cursor: "pointer" }}
+              onClick={() => {
+                setViewList(false);
               }}
             >
-              <div className="fixed inset-y-0 left-0 bg-[#111111] dark:bg-white w-64 p-6 transform transition-transform translate-x-0">
-                {/* Close button */}
-                <button
-                  onClick={closeMobileMenu}
-                  className="text-green-400 dark:text-green-600 hover:text-green-600 focus:outline-none mb-4"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+              <img
+                style={{ width: "100%", height: "100%" }}
+                src={logo}
+                alt="Furni Pro"
+                loading="lazy"
+              />
+            </Box>
+          </Toolbar>
+
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              onClick={() => setViewList(!viewList)}
+              size="large"
+              aria-label="Menu"
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
+        </Box>
+
+        <Box sx={{ display: "flex", justifyContent: "center", mb: "10px" }}>
+          <Box sx={{ width: "70%", position: "relative" }}>
+            <TextField
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="Search..."
+              label="Search"
+              sx={{
+                width: "100%",
+                border: "none",
+                borderBottom: "1px solid",
+                bgcolor: "#FFF",
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <SearchIcon sx={{ cursor: "pointer", color: "black" }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+        </Box>
+
+        {viewList && (
+          <Box className="fade-in" sx={{ display: { xs: "block", md: "none" } }}>
+            <Box
+              sx={{
+                padding: "0 50px",
+                display: { xs: "flex", md: "none" },
+                justifyContent: "center",
+                height: "60px",
+              }}
+            >
+              <IconButton
+                onClick={() => {
+                  setViewList(false);
+                }}
+                size="large"
+                aria-label="Favorite"
+                color="inherit"
+              >
+                <FavoriteBorderIcon sx={{ fontSize: "30px", color: "black" }} />
+                <Badge  color="error" />
+              </IconButton>
+              <IconButton
+                onClick={() => {
+                  setViewList(false);
+                }}
+                size="large"
+                aria-label="Cart"
+                color="inherit"
+                sx={{ m: "0 30px" }}
+              >
+                <ShoppingBagOutlinedIcon
+                  sx={{ fontSize: "30px", color: "black" }}
+                />
+                <Badge color="error" />
+              </IconButton>
+            </Box>
+            <Box sx={{ width: "100%", height: "fit-content" }}>
+              <Box
+                sx={{
+                  color: "black",
+                  mb: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                {pages.map((page) => (
+                  <Button
+                    key={page.name}
+                    sx={{ my: 2, display: "block", color: "black" }}
+                    onClick={() => {
+                      setViewList(false);
+                    }}
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-
-                {/* Mobile nav links */}
-                <nav className="space-y-4 text-gray-400 dark:text-gray-700">
-                  <a href="#about" className="block text-green-400 dark:text-green-600">
-                    Home
-                  </a>
-                  <a href="#what-i-do" className="block hover:text-green-400 dark:hover:text-green-600">
-                    What I Do
-                  </a>
-                  <a href="#testimonials" className="block hover:text-green-400 dark:hover:text-green-600">
-                    Testimonials
-                  </a>
-                  <a href="#clients" className="block hover:text-green-400 dark:hover:text-green-600">
-                    Clients
-                  </a>
-                  <a href="#fun-facts" className="block hover:text-green-400 dark:hover:text-green-600">
-                    Fun Facts
-                  </a>
-                </nav>
-              </div>
-            </div>
-          )}
-        </nav>
-      </div>
-    </div>
+                    {page.name}
+                    <hr
+                      style={{
+                        display: location.pathname === page.Link ? "block" : "none",
+                      }}
+                    />
+                  </Button>
+                ))}
+              </Box>
+            </Box>
+          </Box>
+        )}
+      </Container>
+    </AppBar>
   );
-};
+}
 
-export default ResponsiveNavbar;
+export default ResponsiveAppBar;
