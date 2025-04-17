@@ -4,11 +4,13 @@ import AboutPhoto1 from "../../assets/about-photo-1.png";
 import AboutPhoto2 from "../../assets/about-photo-2.png";
 import AboutPhoto3 from "../../assets/about-photo-3.png";
 import AboutPhoto4 from "../../assets/about-photo-4.png";
+import Navbar from "../Navbar/Navbar";
 
 const About = () => {
   return (
     <React.Fragment>
-    <section id="about" className="mb-24 max-w-screen-2xl mx-auto px-12">
+      <Navbar/>
+    <section  className="mb-24 max-w-screen-2xl mx-auto px-12">
       <div className="flex flex-col xs:flex-row justify-between items-start mb-12">
         <div className="mr-6">
           <h1 className="mb-2 sm:mb-4 font-bold text-5xl text-heading-color leading-tight text-start">

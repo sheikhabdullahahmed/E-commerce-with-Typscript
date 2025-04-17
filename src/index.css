@@ -1,5 +1,5 @@
 @import "tailwindcss";
-.header-links li span {
+/* .header-links li span {
     position: relative;
     z-index: 0;
   }
@@ -21,4 +21,84 @@
 
   .header-links li:not(.active):hover span::before {
     background-color: #ccc;
+  } */
+
+
+  
+
+
+* {
+  box-sizing: border-box;
+  transition: all 500ms ease;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.page-container {
+  padding: 0 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media(max-width: 922px) {
+    padding: 0 20px;
   }
+}
+
+h2 {
+  font-size: 42px !important;
+
+  @media(max-width: 922px) {
+    font-size: 30px !important;
+  }
+}
+
+
+
+.general-button {
+  padding: 12px 40px;
+  background-color: transparent;
+  font-size: 15px;
+  font-weight: 500;
+  width: fit-content;
+
+  &:hover {
+    color: white;
+  }
+}
+
+
+.divider-part {
+  margin: 20px 0 60px 0;
+
+  .divider {
+    width: 5%;
+    height: 2px;
+    margin: 0 auto;
+    border-radius: 3%;
+  }
+}
+
+.part-title {
+  font-size: 30px;
+  line-height: 1.2em;
+  font-weight: 400;
+
+  @media(max-width: 922px) {
+    font-size: 22px;
+  }
+}
+
+::-webkit-scrollbar {
+  padding-left: 5px;
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Handle */

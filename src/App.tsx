@@ -1,26 +1,28 @@
 import React from "react";
-import About from "./Components/About/About";
-import Hero from "./Components/Hero/Hero";
 import Navbar from "./Components/Navbar/Navbar";
-import Products from "./Components/Products/Products";
+import Home from "./Pages/Home";
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
+import About from "./Components/About/About";
 
 const App = () => {
   return (
-    <React.Fragment >
-      <Navbar />
-      <Hero />
-      <About/>
-      {/* <Products/> */}
-    </React.Fragment>
+    <Router>
+      {/* <Navbar /> */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        
+        {/* <Route path="/project" element={<ProjectsPage />} /> */}
+        {/* <Route path="/contactpage" element={<Contact2 />} /> */}
+        {/* <Route path="/projectpage" element={<Projects />} /> */}
+      </Routes>
+      {/* <Contact/> */}
+    </Router>
   );
 };
-
-// https://github.com/Sohail-crypto-collab/Comforty-Store-Hackathon-Update
 
 export default App;
 
 
 
-// https://github.com/Anrsgrl/ecommerce-furniture/blob/main/src/pages/Home/components/Hero/hero.scss
-// https://github.com/Sohail-crypto-collab/Comforty-Store-Hackathon-Update/tree/main/src/components 
-// https://github.com/Anrsgrl/ecommerce-furniture
+// https://dummyjson.com/products/category/furniture
