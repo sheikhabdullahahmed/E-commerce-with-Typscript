@@ -12,15 +12,7 @@ const About = () => {
       <Navbar/>
     <section  className="mb-24 max-w-screen-2xl mx-auto px-12">
       <div className="flex flex-col xs:flex-row justify-between items-start mb-12">
-        <div className="mr-6">
-          <h1 className="mb-2 sm:mb-4 font-bold text-5xl text-heading-color leading-tight text-start">
-            About Us
-          </h1>
-          <p className="text-p-color font-normal text-xl">
-            At furni.shop, we take pride in <br /> our values – service,
-            integrity, <br /> and excellence.{" "}
-          </p>
-        </div>
+  
 
         <button className="rounded-sm mx-0 my-6 bg-secondary-gray px-8 py-3 shadow-2xl shadow-[#244D4D]/40 text-heading-color-3 hover:text-p-color font-medium text-lg">
           Learn more
